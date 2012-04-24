@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>じゃんけんゲームv4 | VOYAGE Tech Dojo</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+<style type="text/css">
+ body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+ }
+ .sidebar-nav {
+  padding: 9px 0;
+ }
+</style>
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+ <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="brand" href="#">VOYAGE Tech Dojo</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">じゃんけんゲーム</li>
+                    <li ><a href="rsp_v1.html">バージョン1</a></li>
+                    <li ><a href="rsp_v2.html">バージョン2</a></li>
+                    <li ><a href="rsp_v3.html">バージョン3</a></li>
+                    <li class="active"><a href="rsp_v4.html">バージョン4</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span9">
+            <div class="row-fluid">
+                <div class="content-header">
+                    <h1>じゃんけんゲームv4</h1>
+                    <ul>
+                        <li>v1: ボブとじゃんけん勝負をしてください。</li>
+                        <li>v1: あなたはグー、チョキ、パーのいずれかのボタンを押すことで出す手を選択できます。</li>
+                        <li>v1: ボタンを押すとあなたが選択した手と同じ画像が表示されます。</li>
+                        <li>v1: ボタンを押すとボブがランダムに選択した手と同じ画像が表示されます。</li>
+                        <li>v1: あなたとボブの勝敗結果が画像の下に表示されます。</li>
+                        <li>v2: 勝敗結果の下に戦績が表示されます。戦績はブラウザを閉じるとリセットされます。</li>
+                        <li>v2: 戦績はサマリーと履歴から成り立っています。</li>
+                        <li>v2: 戦績サマリーはxx勝xx敗xx分けと表示されます。</li>
+                        <li>v2: 戦績履歴は1回ごとのあなたの手、ボブの手、勝敗が表示されます。</li>
+                        <li>v3: 対戦相手を選択できます。</li>
+                        <li>v3: 対戦相手ごとに特徴があります。
+                            <ul>
+                                <li>ボブ：グー、チョキ、パーを平均的に出す。</li>
+                                <li>アドルフ：最初にパーを出すことが多い。</li>
+                                <li>クラーク：チョキを多めに出す。</li>
+                                <li>ダドリー：相手が同じ手を連続して出してくるとそれに合わせて勝てる手を出す。</li>
+                            </ul>
+                        </li>
+                        <li>v4: 対戦成績をサーバに保存することができます。</li>
+                        <li>v4: サーバーに保存するボタンを押すと8桁のパスコードが表示されます。</li>
+                        <li>v4: パスコードを入力すると前回の続きから始められます。</li>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <div class="row-fluid">
+                <button type="button" class="btn rsp-btn" id="rock">グー</button>
+                <button type="button" class="btn rsp-btn" id="scissors">チョキ</button>
+                <button type="button" class="btn rsp-btn" id="paper">パー</button>
+            </div>
+            <hr />
+            <div class="row-fluid">
+                <div class="span3 offset1">
+                    <p>あなた</p>
+                    <img src="img/rock.png" />
+                </div>
+                <div class="span3 offset1">
+                    <p>ボブ</p>
+                    <img src="img/scissors.png" />
+                </div>
+            </div>
+            <hr />
+            <div class="row-fluid">
+                <p id="result" class="offset1">Who will win?</p>
+            </div>
+        </div>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; VOYAGE GROUP, Inc. All Rights Reserved.</p>
+        </footer>
+    </div><!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+
+<script type="text/javascript">
+    $(".rsp-btn").click(function(){
+        var num = next_rsp();
+        if (num % 2 == 0) {
+            $("#result").text("You win!");
+        } else {
+            $("#result").text("Bob win!");
+        }
+    });
+    function next_rsp() {
+        var num = Math.floor(Math.random() * 10000);
+        console.log(num);
+        console.log(num % 2);
+        return num;
+    }
+</script>
+</body>
+</html>
