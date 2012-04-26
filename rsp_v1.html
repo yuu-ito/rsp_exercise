@@ -103,23 +103,25 @@
 
     <script type="text/javascript">
       $(".rsp-btn").click(function(){
-          
+
           //console.log(this.id);
-          var choices= ["rock","scissors","paper"];
+          var choices = ["rock","scissors","paper"];
+          var my_choices = {"rock":0,"scissors":1, "paper":2};
+
           $("#your_choice_img").attr("src","img/"+this.id+".png");
-          
+
           //console.log("img/"+this.id+".png");
           var num = next_rsp();
           $("#com_choice_img").attr("src","img/"+choices[num]+".png"); 
-          
-          if (num  == 0) {
-            $("#result").text("You win!");
-          } else if (num == 1) {
-            $("#result").text("Bob win!");
+
+          if (num == my_choices[this.id]) {
+            $("#result").text("Draw! Try again!!");
+          } else if ((my_choices[this.id]+2)%3==num) {
+            $("#result").text("You Lose...");
           } else {
-            $("#result").text("Draw...");
+            $("#result").text("You Win!");
           }
-          });
+      });
 function next_rsp() {
   var num = Math.floor(Math.random() * 10000);
   console.log(num);
