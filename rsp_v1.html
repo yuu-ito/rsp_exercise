@@ -115,13 +115,13 @@
           $("#com_choice_img").attr("src","img/"+choices[num]+".png"); 
 
           if (num == my_choices[this.id]) {
-            $("#result").text("Draw! Try again!!");
+          $("#result").text("Draw! Try again!!");
           } else if ((my_choices[this.id]+2)%3==num) {
-            $("#result").text("You Lose...");
+          $("#result").text("You Lose...");
           } else {
-            $("#result").text("You Win!");
+          $("#result").text("You Win!");
           }
-      });
+          });
 function next_rsp() {
   var num = Math.floor(Math.random() * 10000);
   console.log(num);
