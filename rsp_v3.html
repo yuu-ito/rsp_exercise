@@ -40,7 +40,7 @@
                     <li class="active"><a href="rsp_v3.html">バージョン3</a></li>
                     <li ><a href="rsp_v4.html">バージョン4</a></li>
                 </ul>
-            <div id="result_history"></div>
+            <div id="result_h"></div>
             </div>
         </div>
         <div class="span9">
@@ -82,7 +82,12 @@
                     <img id="your_choice_img" src="img/rock.png" />
                 </div>
                 <div class="span3 offset1">
-                    <p>ボブ</p>
+                  <select name="com">
+                    <option value="bo" >ボブ</option>
+                    <option value="ad" >アドルフ</option>
+                    <option value="cl" >クラーク</option>
+                    <option value="da" >ダトリー</option>
+                  </select>
                     <img src="img/scissors.png" />
                 </div>
             </div>
@@ -117,12 +122,12 @@
     <script src="js/bootstrap-typeahead.js"></script>
 
     <script type="text/javascript">
-      var rsp_results = new Object();
-      rsp_results.count = 0;
-      rsp_results.win = 0;
-      rsp_results.lose = 0;
-      rsp_results.draw = 0;
-      rsp_results.history = new Array();
+      var results = new Object();
+      results.count = 0;
+      results.win = 0;
+      results.lose = 0;
+      results.draw = 0;
+      results.history = new Array();
 
       $(".rsp-btn").click(function(){
 
@@ -136,26 +141,25 @@
           var num = next_rsp();
           $("#com_choice_img").attr("src","img/"+choices[num]+".png"); 
           
-          rsp_results.count = rsp_results.count + 1;
+          results.count = results.count + 1;
           if (num == my_choices[this.id]) {
             $("#result").text("Draw! Try again!!");
-            rsp_results.draw = rsp_results.draw+ 1;
+            results.draw = results.draw+ 1;
           }else if((my_choices[this.id]+2)%3==num) {
             $("#result").text("You Lose...");
-          rsp_results.lose = rsp_results.lose + 1;
+          results.lose = results.lose + 1;
           }else{
             $("#result").text("You Win!");
-            rsp_results.win = rsp_results.win + 1;
+            results.win = results.win + 1;
           }
 
-          $("#result_history").html(
-            $("#result_history").html()+"<br/>"
-            +"第"+rsp_results.count+"回: "+$("#result").text());
+          $("#result_h").html(
+            $("#result_h").html()+"<br/>"+"第"+results.count+"回: "+$("#result").text());
           $("#result_sum").text(
-            rsp_results.count+"戦"+
-            rsp_results.win+"勝"+
-            rsp_results.lose+"敗"+
-            rsp_results.draw+"分け");
+            results.count+"戦"+
+            results.win+"勝"+
+            results.lose+"敗"+
+            results.draw+"分け");
       });
 
       function next_rsp() {
