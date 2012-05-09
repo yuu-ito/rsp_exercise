@@ -88,7 +88,7 @@
                 <option value="Cla" >クラーク</option>
                 <option value="Dad" >ダトリー</option>
               </select>
-              <img src="img/scissors.png" />
+              <img id="com_chosen_img" src="img/scissors.png" />
             </div>
           </div>
           <hr />
@@ -129,42 +129,64 @@
       results.draw = 0;
       results.message = "";
       results.history = new Array();
+      results.com_name = "";
+      results.my_prechoice = "rock"; 
+      results.my_choices = {"rock":0,"scissors":1, "paper":2};
 
       $(".rsp-btn").click(function(){
 
-          //console.log(this.id);
           var choices = ["rock","scissors","paper"];
-          var my_choices = {"rock":0,"scissors":1, "paper":2};
-
+          if(results.com_name != $("#com_selector option:selected").val()){
+            results.count = 0;
+            results.win = 0;
+            results.lose = 0;
+            results.draw = 0;
+            results.message = "";
+            $("#result_h").html("");
+            results.com_name = $("#com_selector option:selected").val();
+          }
+          // グーチョキパーを平均的に出す
           var Bob = function(){
-            var num = Math.floor(Math.random() * 10000);
-            return num % 3;
+            return Math.floor(Math.random() * 3);
           }
+          // 最初にパーを出す確率が高い
           var Ado = function(){
-            var num = Math.floor(Math.random() * 10000);
-            return num % 3;
+            if(results.count == 0){
+              var prb = [0,1,2,2,2];
+              return prb[Math.floor(Math.random() * 5)];
+            }
+            return Math.floor(Math.random() * 3);
           }
+          // ちょき多め
           var Cla = function(){
-            var num = Math.floor(Math.random() * 10000);
-            return num % 3;
+            var prb = [0,1,1,1,2];
+            return prb[Math.floor(Math.random() * 5)];
           }
+          // 相手が同じ手を連続して出すとそれに合わせて勝てる手を出す。FIXME
           var Dad = function(){
-            var num = Math.floor(Math.random() * 10000);
-            return num % 3;
+            // console.log($(".rsp-btn").attr("id") +" "+ results.my_prechoice);
+            // if($(".rsp-btn").attr("id") === results.my_prechoice){
+            //   results.my_prechoice = $(".rsp-btn").attr("id");
+            //   console.log(results.my_choices[$(".rsp-btn").attr("id")]+2)%3;
+            //   
+            //   return (results.my_choices[$(".rsp-btn").attr("id")]+2)%3;
+            // }
+            return Math.floor(Math.random() * 3);
           }
-          
+
+
           $("#your_choice_img").attr("src","img/"+this.id+".png");
 
           //console.log("img/"+this.id+".png");
           //var num = next_rsp();
-          var num = eval($("#com_selector option:selected").val());//next_rsp();
-          $("#com_choice_img").attr("src","img/"+choices[num]+".png"); 
+          var num = eval(results.com_name+"()");
+          $("#com_chosen_img").attr("src","img/"+choices[num]+".png"); 
 
           results.count = results.count + 1;
-          if (num == my_choices[this.id]) {
+          if (num == results.my_choices[this.id]) {
             results.message = "との闘いはまだ終わらない...!!";
             results.draw = results.draw+ 1;
-          }else if((my_choices[this.id]+2)%3==num) {
+          }else if((results.my_choices[this.id]+2)%3==num) {
             results.message = "との闘いに敗けてしまった...";
             results.lose = results.lose + 1;
           }else{
@@ -172,7 +194,7 @@
             results.win = results.win + 1;
           }
 
-          $("#result").text("第"+results.count+"戦目！"+$("#com_selector option:selected").val()+results.message);
+          $("#result").text("第"+results.count+"戦目！"+results.com_name+results.message);
           $("#result_h").html($("#result_h").html()+"<br/>"+"第"+results.count+"回: "+$("#result").text());
           $("#result_sum").text(results.win+"勝"+results.lose+"敗"+results.draw+"分け");});
 
@@ -181,7 +203,6 @@
             var num = Math.floor(Math.random() * 10000);
             console.log(num);
             console.log(num % 3);
-            return obj.next_rsp();
             return num % 3;
           }
 </script>
