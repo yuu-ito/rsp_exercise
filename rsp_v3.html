@@ -162,15 +162,15 @@
             var prb = [0,1,1,1,2];
             return prb[Math.floor(Math.random() * 5)];
           }
-          // 相手が同じ手を連続して出すとそれに合わせて勝てる手を出す。FIXME
-          var Dad = function(){
-            // console.log($(".rsp-btn").attr("id") +" "+ results.my_prechoice);
-            // if($(".rsp-btn").attr("id") === results.my_prechoice){
-            //   results.my_prechoice = $(".rsp-btn").attr("id");
-            //   console.log(results.my_choices[$(".rsp-btn").attr("id")]+2)%3;
-            //   
-            //   return (results.my_choices[$(".rsp-btn").attr("id")]+2)%3;
-            // }
+          // 相手が同じ手を連続して出すとそれに合わせて勝てる手を出す。
+          var Dad = function(selected_id){
+            console.log(selected_id +" "+ results.my_prechoice);
+            if(selected_id == results.my_prechoice){
+              //console.log(results.my_choices[$(".rsp-btn").attr("id")]+2)%3;
+              results.my_prechoice = selected_id;
+              return (results.my_choices[selected_id]+2)%3;
+            }
+            results.my_prechoice = selected_id;
             return Math.floor(Math.random() * 3);
           }
 
@@ -179,7 +179,7 @@
 
           //console.log("img/"+this.id+".png");
           //var num = next_rsp();
-          var num = eval(results.com_name+"()");
+          var num = eval(results.com_name+"('"+this.id+"')");
           $("#com_chosen_img").attr("src","img/"+choices[num]+".png"); 
 
           results.count = results.count + 1;
