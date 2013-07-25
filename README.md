@@ -1,4 +1,4 @@
 # This is an exercise.
 
-![alt text][img/rock.png]
-
+ぐー:
+![ぐー](img/rock.png)
